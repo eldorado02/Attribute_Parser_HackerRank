@@ -198,33 +198,71 @@ std::ostream & operator<<(ostream & os, const Tag & tag)
 }
 
 
+class Node
+{
+    private:
+        Node    *_parent;
+        vector<Node *>  _son;
+        Tag            *_tag;
+        
+    public:
+        Node(Tag * tag, Node * parent);
+        Node(const Node & src);
+        Node &operator=(const Node & rhs);
+        ~Node();
+};
+
+Node::Node(Tag * tag, Node * parent): _parent(), _tag(tag), _son()
+{
+}
+
+Node &Node::operator=(const Node & rhs)
+{
+    if (this != &rhs)
+    {
+        this->_parent = rhs._parent;
+        this->_son = rhs._son;
+        this->_tag = rhs._tag;
+    }
+    return (*this);
+}
+
 class Tree
 {
-    
+    private:
+        Node *root;
+    public:
+        Tree() {};
+        Tree(vector<Tag> tags);
+        Tree(const )
 };
+
+void    takeQuerie(Tree & tree, int n_quieries)
+{
+    
+}
+
 
 int main() {
     int i;
     int n_tag;
     std::string buffer;
     vector<string>  strs;
-    Tag tag;
+    vector<Tag>     tags;
+    Tree            tree;
 
     i = 0;
     std::getline(std::cin, buffer);
     strs = ft_split(buffer, " ");
     n_tag = atoi(strs[0].c_str());
-    while (std::getline(std::cin, buffer))
+    while (std::getline(std::cin, buffer) && i < n_tag)
     {
         if (i < n_tag)
         {
-            tag = Tag(buffer);
-            cout << tag << endl;
+            tags.push_back(Tag(buffer));
         }
-        else
-            cout << "queries = " << buffer << endl;
         i += 1;
     }
-    
+    tree = Tree(tags);
     return 0;
 }
